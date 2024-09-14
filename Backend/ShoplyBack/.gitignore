@@ -1,7 +1,8 @@
 # Build results
 /bin/
 /obj/
-
+/ShoplyBack/bin/
+/ShoplyBack/obj/
 # User-specific files
 *.suo
 *.user
