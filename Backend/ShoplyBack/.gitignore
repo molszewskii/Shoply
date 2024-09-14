@@ -1,0 +1,27 @@
+# Build results
+/bin/
+/obj/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+
+# Environment variables
+*.env
+
+# NuGet Packages
+*.nupkg
+*.snupkg
+
+# Visual Studio temporary files
+.vs/
+
+# ASP.NET specific
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
