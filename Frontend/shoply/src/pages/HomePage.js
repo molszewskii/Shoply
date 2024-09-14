@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import HeroSection from '../components/heroSection';
 import ProductList from '../components/productList';
 
@@ -15,13 +15,12 @@ const PromotionSection = () => {
   };
   
   const HomePage = () => {
+    const productsRef = useRef(null);
     return (
       <div>
-        <HeroSection />
+        <HeroSection productsRef={productsRef}/>
         <PromotionSection />
-        <div className="mt-10">
-          <ProductList />
-        </div>
+        <ProductList ref={productsRef} />
       </div>
     );
   };
