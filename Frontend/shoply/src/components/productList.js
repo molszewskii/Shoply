@@ -13,14 +13,6 @@ const ProductList = forwardRef((props, ref) => {
         );
     }, [products, searchTerm]);
 
-    useImperativeHandle(ref, () => ({
-        scrollIntoView: () => {
-            if (ref.current) {
-                ref.current.scrollIntoView({ behavior: 'smooth' });
-            }
-        }
-    }),[ref]);
-
     if (loading) {
         return <LoadingSpinner />;
     }
