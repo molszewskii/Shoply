@@ -1,11 +1,17 @@
 import React, { forwardRef, useImperativeHandle, useState, useEffect, useMemo } from 'react';
-import { useProducts } from "../contexts/productContext";
 import LoadingSpinner from "./loadingSpinner";
 import { ProductItemCard } from "./productItemCard";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts } from '../redux/slices/productSlice';
 
 const ProductList = forwardRef((props, ref) => {
-    const { products, loading, error } = useProducts();
+    const dispatch = useDispatch();
+    const { products, loading, error } = useSelector(state=>state.products)
     const [searchTerm, setSearchTerm] = useState("");
+
+    useEffect(()=>{
+      dispatch(fetchProducts());
+    },[dispatch])
 
     const filteredProducts = useMemo(() => {
         return products.filter(product =>
