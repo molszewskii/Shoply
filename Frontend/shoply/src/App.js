@@ -1,16 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import {Navbar} from "./components/navbar"
-import { ProductProvider } from './contexts/productContext';
-import ProductList from './components/productList';
-import { ShopContextProvider } from './contexts/shopContext';
 import { CartPage } from './pages/CartPage';
 import HomePage from './pages/HomePage';
+import { Provider } from 'react-redux';
+import store from './redux/store'
 function App() {
   return (
-    <ProductProvider>
-      <ShopContextProvider>
+    <Provider store={store}>
       <div className="App">
         <Router>
           <Navbar/>
@@ -22,8 +19,7 @@ function App() {
           </Routes>
         </Router>
       </div>
-      </ShopContextProvider>
-    </ProductProvider>
+      </Provider>
   
   );
 }
