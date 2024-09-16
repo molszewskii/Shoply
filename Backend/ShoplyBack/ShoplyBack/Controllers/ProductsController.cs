@@ -68,9 +68,6 @@ namespace ShoplyBack.Controllers
             }
         }
 
-
-
-
         [HttpGet]
         [Route("getProducts")]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
@@ -87,5 +84,18 @@ namespace ShoplyBack.Controllers
 
             return Ok(products);
         }
+
+        [HttpGet]
+        [Route("getProductsByCategoryId/{categoryId}")]
+        public async Task<IActionResult> GetProductsByCategoryId(int categoryId)
+        {
+            var products = await _productDbContext.Products.Where(p => p.CategoryId == categoryId).Include(p => p.Category).ToListAsync();
+            if(products.Count == 0 || products == null)
+            {
+                return NotFound("No products were found in this category");
+            }
+            return Ok(products);
+        }
+
     }
 }
