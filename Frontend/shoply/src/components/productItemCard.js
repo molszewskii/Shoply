@@ -1,9 +1,15 @@
 import React from 'react'
-import { useShopContext } from '../contexts/shopContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItemToCart } from '../redux/slices/cartSlice';
 
 export const ProductItemCard = (props) => {
   const {id, productName, price, productImage} = props;
-  const {addItemToCart, cartItems} = useShopContext();
+  const dispatch = useDispatch();
+  const cartItems = useSelector(state=>state.cart)
+
+  const handleAddItem=()=>{
+    dispatch(addItemToCart(id))
+  }
   return (
     <div key={id} className="border rounded-lg p-4 shadow-lg transition-transform transform hover:scale-105">
         <img 
@@ -19,7 +25,7 @@ export const ProductItemCard = (props) => {
         </button>
         <button
             className="text-black bg-yellow-300 p-2 rounded flex-1 sm:flex-none hover:bg-yellow-400 whitespace-normal overflow-wrap break-word min-w-[100px] max-w-[150px] text-center"
-            onClick={() => addItemToCart(id)}
+            onClick={handleAddItem}
         >
             Add to Cart {cartItems[id] > 0 && <>({cartItems[id]})</>}
         </button>
