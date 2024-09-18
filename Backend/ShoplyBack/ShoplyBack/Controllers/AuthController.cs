@@ -67,7 +67,14 @@ namespace ShoplyBack.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
 
-            return Ok(new {Token =  tokenString});
+            return Ok(new {
+                Token =  tokenString,
+                User = new
+                {
+                    Name = user.UserName,
+                    Email = user.UserEmail
+                }
+            });
         }
     }
 }
