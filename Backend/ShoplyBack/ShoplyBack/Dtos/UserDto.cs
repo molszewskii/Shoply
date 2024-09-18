@@ -4,7 +4,7 @@ namespace ShoplyBack.Dtos
 {
     public class UserDto
     {
-        public string ? UserName { get; set; }
+        public string ? Name { get; set; }
         [Required]
         public string Email { get; set; }
         [Required]

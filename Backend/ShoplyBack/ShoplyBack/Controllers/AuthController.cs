@@ -33,7 +33,7 @@ namespace ShoplyBack.Controllers
             }
             var user = new User
             {
-                UserName = userDto.UserName,
+                UserName = userDto.Name,
                 UserEmail = userDto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password)
             };
@@ -47,8 +47,8 @@ namespace ShoplyBack.Controllers
         public async Task<IActionResult> Login([FromBody] UserDto userDto)
         {
             var user = await _userDbContext.Users.SingleOrDefaultAsync(u=>u.UserEmail == userDto.Email);
-            if(user == null || !BCrypt.Net.BCrypt.Verify(userDto.Password, user.PasswordHash)) 
-            { 
+            if (user == null || !BCrypt.Net.BCrypt.Verify(userDto.Password, user.PasswordHash))
+            {
                 return Unauthorized();
             }
             var tokenHandler = new JwtSecurityTokenHandler();
