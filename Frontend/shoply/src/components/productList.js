@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useState, useEffect, useMemo } from 'react';
+import React, { forwardRef, useState, useEffect, useMemo } from 'react';
 import LoadingSpinner from "./loadingSpinner";
 import { ProductItemCard } from "./productItemCard";
 import { useDispatch, useSelector } from 'react-redux';
@@ -38,7 +38,7 @@ const ProductList = forwardRef((props, ref) => {
                 placeholder="Search products..."
                 value={searchTerm}
                 onChange={handleSearch}
-                className="mb-4 p-2 border border-gray-300 rounded-lg w-full"
+                className="mb-4 p-2 border border-gray-300 rounded-lg w-[calc(100%-2rem)]"
             />
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
             {filteredProducts.length === 0 ? (
