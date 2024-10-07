@@ -13,6 +13,16 @@ class ProductService {
             throw error;
         }
     }
+
+    fetchProductsByCategoryId = async(categoryId)=>{
+        try{
+            const response = await axios.get(`${this.apiBaseUrl}/getProductsByCategoryId/${categoryId}`);
+            return response.data;
+        }catch(error){
+            console.error("Failed to fetch products by category ID");
+            throw error;
+        }
+    }
 }
 
 export default new ProductService();
