@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import HeroSection from '../components/heroSection';
-import ProductList from '../components/productList';
+import ProductList from '../components/ProductList/productList';
+import ProductSlider from '../components/productSlider';
 
 const PromotionSection = () => {
     return (
@@ -20,6 +21,7 @@ const PromotionSection = () => {
       <div>
         <HeroSection productsRef={productsRef}/>
         <PromotionSection />
+        <ProductSlider/>
         <ProductList ref={productsRef} />
       </div>
     );
