@@ -3,9 +3,10 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import {Navbar} from "./components/navbar"
 import { CartPage } from './pages/CartPage';
 import HomePage from './pages/HomePage';
-import { Provider } from 'react-redux';
+import { Provider} from 'react-redux';
 import store from './redux/store'
-import { LoginPage } from './pages/LoginPage';
+import { AuthPage } from './pages/AuthPage';
+import { ProductPage } from './pages/ProductPage';
 function App() {
   return (
     <Provider store={store}>
@@ -15,9 +16,10 @@ function App() {
           <div className="flex-grow">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path='/products/:modelName' element={<ProductPage />}/>
               <Route path="/cart" element={<CartPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" />
+              <Route path="/login" element={<AuthPage />} />
+              <Route path="/register" element={<AuthPage/>}/>
             </Routes>
           </div>
         </Router>
