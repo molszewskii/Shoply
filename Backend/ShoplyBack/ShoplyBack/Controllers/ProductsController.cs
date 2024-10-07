@@ -30,11 +30,24 @@ namespace ShoplyBack.Controllers
                     {
                         return BadRequest("Product object is null.");
                     }
+                    var category = await _productDbContext.Categories.FindAsync(product.CategoryId);
+                    if (category == null)
+                    {
+                        return BadRequest("Invalid CategoryId.");
+                    }
 
+                    
+                    var deviceModel = await _productDbContext.DeviceModels.FindAsync(product.DeviceModelId);
+                    if (deviceModel == null)
+                    {
+                        return BadRequest("Invalid DeviceModelId.");
+                    }
                     var item = new Product
                     {
                         Name = product.Name,
                         Price = product.Price,
+                        CategoryId = product.CategoryId.Value,
+                        DeviceModelId = product.DeviceModelId.Value
                     };
 
                     if (file != null && file.Length > 0)
@@ -80,6 +93,10 @@ namespace ShoplyBack.Controllers
                     Name = p.Name,
                     Price = p.Price,
                     ImagePath = $"{baseUrl}{p.ImagePath}",
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.CategoryName,
+                    DeviceModelId = p.DeviceModelId,
+                    ModelName = p.DeviceModel.ModelName,
                 }).ToListAsync();
 
             return Ok(products);
@@ -89,13 +106,31 @@ namespace ShoplyBack.Controllers
         [Route("getProductsByCategoryId/{categoryId}")]
         public async Task<IActionResult> GetProductsByCategoryId(int categoryId)
         {
-            var products = await _productDbContext.Products.Where(p => p.CategoryId == categoryId).Include(p => p.Category).ToListAsync();
-            if(products.Count == 0 || products == null)
+            var baseUrl = $"{Request.Scheme}://{Request.Host}";
+            var products = await _productDbContext.Products
+                .Where(p => p.CategoryId == categoryId)
+                .Include(p => p.Category)
+                .Include(p => p.DeviceModel)
+                .Select(p => new ProductDto
+                {
+                    Id= p.Id,
+                    Name = p.Name,
+                    Price = p.Price,
+                    ImagePath = $"{baseUrl}{p.ImagePath}",
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.CategoryName,
+                    DeviceModelId = p.DeviceModelId,
+                    ModelName = p.DeviceModel.ModelName,
+                })
+                .ToListAsync();
+
+            if (products.Count == 0 || products == null)
             {
                 return NotFound("No products were found in this category");
             }
             return Ok(products);
         }
+
 
     }
 }
