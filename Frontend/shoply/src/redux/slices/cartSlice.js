@@ -9,9 +9,15 @@ const cartSlice = createSlice({
             const itemId = action.payload;
             state[itemId]  = (state[itemId] || 0) +1;
         },
-        removeItemFromCart: (state,action) => {
+        removeItemFromCart: (state, action) => {
             const itemId = action.payload;
-            state[itemId] = Math.max((state[itemId] || 0) - 1, 0)
+            if (state[itemId]) {
+                state[itemId] = Math.max(state[itemId] - 1, 0);
+
+                if (state[itemId] === 0) {
+                    delete state[itemId];
+                }
+            }
         }
     }
 })
