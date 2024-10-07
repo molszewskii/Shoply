@@ -7,11 +7,22 @@ class DeviceModelService{
 
     getDeviceModels=async(categoryId)=>{
         try{
-            const response = await axios.get(`${this.apiBaseUrl}/getDeviceModels/${categoryId}`)
+            const response = await axios.get(`${this.apiBaseUrl}/getDeviceModelsByCategoryId/${categoryId}`)
             console.log(response.data)
             return response.data
         }catch(error){
             console.error("Failed to fetch device models");
+            throw error;
+        }
+    }
+
+    getDeviceModelInfo = async(productId)=>{
+        try{
+            const response = await axios.get(`${this.apiBaseUrl}/getDeviceInfoById/${productId}`)
+            console.log(response.data)
+            return response.data;
+        }catch(error){
+            console.error("Failed to fetch device model info")
             throw error;
         }
     }
